@@ -1,25 +1,14 @@
 # vars & jobs
 
 variables:
-  JobStatus: "waiting"
+  Name: "zhangsan"
 
 Job1:
-  script:
-    - echo "Job1 start"
-    - echo "Job1 ${JobStatus}"
   before_script:
-    - |
-      echo -e "\e[31m Job1 Before script start \e[31m"
-      JobStatus="running"
-      echo "Job1 Before script ends"
-  after_script:
-    - >
-      echo "Job1 After script start"
-      echo "Job1 After script ends"
-      
-Job2:
+    - apt update -y
+    - apt install tree -y
   script:
-    - curl -sL https://baidu.com
-  after_script:
-    - JobStatus="Ends"
-    - echo "All Job Status ${JobStatus}"
+    - echo ${PWD}
+    - ls -l
+    - tree -L 3 .
+    - echo ${env}
