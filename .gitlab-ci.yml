@@ -3,7 +3,6 @@
 stages:
   - S1
   - S2
-  - Job3
 
 Job1:
   stage: S1
@@ -24,5 +23,11 @@ Job2:
       echo "Job2 script ends"
 
 Job3:
+  stage: S2
   script:
-    - echo "Job default stage is JobName"
+    - echo "Job3 is running"
+
+# Job 可以不属于任何 stage
+Job4:
+  script:
+    - echo "Job4 is running"
