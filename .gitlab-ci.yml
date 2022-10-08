@@ -27,7 +27,7 @@ Job3:
   script:
     - echo "Job3 is running"
 
-# Job 可以不属于任何 stage
 Job4:
+  stage: .post
   script:
     - echo "Job4 is running"
