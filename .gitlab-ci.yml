@@ -1,14 +1,14 @@
 # vars & jobs
 
 variables:
-  Name: "zhangsan"
+  MyName: "zhangsan"
 
 Job1:
   before_script:
     - apt update -y
     - apt install tree -y
   script:
-    - echo ${PWD}
-    - ls -l
-    - tree -L 3 .
-    - echo ${env}
+    - echo ${PWD}   # 打印当前工作目录
+    - tree -L 3 .   # 查看当前文件夹目录
+    - export        # 打印所有环境变量
+    #- 'dir env:'   # Windows powershell 使用该命令
