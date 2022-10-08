@@ -1,14 +1,29 @@
 # vars & jobs
 
 variables:
-  MyName: "zhangsan"
+  Status: "waiting"
+
+stages:
+  - S1
+  - S2
 
 Job1:
+  stage: S1
   before_script:
-    - apt update -y
-    - apt install tree -y
+    - Status="running"
+    - echo "Job1 status ${Status}"
   script:
-    - echo ${PWD}   # 打印当前工作目录
-    - tree -L 3 .   # 查看当前文件夹目录
-    - export        # 打印所有环境变量
-    #- 'dir env:'   # Windows powershell 使用该命令
+    - |
+      echo "Job1 Run command 1"
+      echo "Job1 Run command 2"
+  after_script:
+    - Status="Stop"
+    - echo "Job1 status ${Status}"
+
+Job2:
+  stage: S2
+  script:
+    - >
+      bash ./scripts/s2_job.sh
+      Status="Ends"
+      echo "Job2 status ${Status}"
