@@ -1,29 +1,28 @@
-# vars & jobs
-
-variables:
-  Status: "waiting"
+# job & stage
 
 stages:
   - S1
   - S2
+  - Job3
 
 Job1:
   stage: S1
   before_script:
-    - Status="running"
-    - echo "Job1 status ${Status}"
+    - echo "Job1 before script"
   script:
     - |
       echo "Job1 Run command 1"
       echo "Job1 Run command 2"
   after_script:
-    - Status="Stop"
-    - echo "Job1 status ${Status}"
+    - echo "Job1 after script"
 
 Job2:
   stage: S2
   script:
     - >
       bash ./scripts/s2_job.sh
-      Status="Ends"
-      echo "Job2 status ${Status}"
+      echo "Job2 script ends"
+
+Job3:
+  script:
+    - echo "Job default stage is JobName"
