@@ -12,3 +12,5 @@ Job1:
     - tree -L 3 .   # 查看当前文件夹目录
     - export        # 打印所有环境变量
     #- 'dir env:'   # Windows powershell 使用该命令
+  #tags:
+  #  - tag1         # 指定 runner 标签
