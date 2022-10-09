@@ -2,6 +2,9 @@
 
 variables:
   Status: "waiting"
+  DEPLOY_ENV:
+    value: "test"
+    description: "发布环境变量"
 
 stages:
   - S1
