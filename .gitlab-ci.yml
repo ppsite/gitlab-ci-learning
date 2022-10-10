@@ -4,6 +4,7 @@
 stages:
   - S1
   - S2
+  - shared
 
 Shared: &shared
   stage: shared

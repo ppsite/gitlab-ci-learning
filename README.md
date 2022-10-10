@@ -11,8 +11,11 @@ Shared: &shared
     - echo "Shared scripts"
 
 Job1:
+  stage: S1
   <<: *shared
 ```
+
+> 实验证明
 
 # extends 扩展
 
