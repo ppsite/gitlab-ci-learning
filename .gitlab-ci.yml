@@ -4,6 +4,7 @@
 stages:
   - S1
   - S2
+  - shared
 
 .Shared: &shared
   stage: shared
@@ -22,8 +23,8 @@ stages:
     - echo "Base Job1 scripts"
 
 Job1:
-  stage: S1
   <<: *shared
+  stage: S1
 
 Job2:
   extends:
