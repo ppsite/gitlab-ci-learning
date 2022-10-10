@@ -1,34 +1,33 @@
-> # variables
+> # 模版继承与扩展
 
-# 何处定义变量
+# YAML 锚点继承
 
-* 预设变量
-* .gitlab-ci 流程中配置
-* 项目后台配置
-* 手动运行时配置
+可以使用 YAML 锚点功能实现代码复用
 
-# 变量类型
+```yaml
+Shared: &shared
+  stage: shared
+  script:
+    - echo "Shared scripts"
 
-> Variable: 普通变量
+Job1:
+  <<: *shared
+```
 
-普通变量映射到 Runner 的环境变量中
+# extends 扩展
 
-> File: 文件类型
+```shell
+BaseJob1:
+  stage: S1
+  script:
+    - echo "Base Job1 scripts"
 
-文件类型映射到 Runner 的文件中
+Job1:
+  stage: S1
+  <<: *shared
 
-# 变量标签
-
-![](./images/variable_flags.png)
-
-> Protect variable
-
-只在保护分支或保护 Tag 才导出
-
-> Mask variable
-
-在 runner 日志中以 * 号出现，可以保护敏感数据。
-
-# 变量优先级
-
-运行时配置 -> 项目配置 -> ci 文件配置
+Job2:
+  extends:
+    - BaseJob1
+    - BaseJob2
+```

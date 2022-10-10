@@ -1,32 +1,31 @@
 # vars & jobs
 
-variables:
-  Status: "waiting"
-  DEPLOY_ENV:
-    value: "test"
-    description: "发布环境变量"
 
 stages:
   - S1
   - S2
 
-Job1:
-  stage: S1
-  before_script:
-    - Status="running"
-    - echo "Job1 status ${Status}"
+Shared: &shared
+  stage: shared
   script:
-    - |
-      echo "Job1 Run command 1"
-      echo "Job1 Run command 2"
-  after_script:
-    - Status="Stop"
-    - echo "Job1 status ${Status}"
+    - echo "Shared scripts"
 
-Job2:
+# extends
+BaseJob2:
   stage: S2
   script:
-    - >
-      bash ./scripts/s2_job.sh
-      Status="Ends"
-      echo "Job2 status ${Status}"
+    - echo "Base Job2 scripts"
+
+BaseJob1:
+  stage: S1
+  script:
+    - echo "Base Job1 scripts"
+
+Job1:
+  stage: S1
+  <<: *shared
+
+Job2:
+  extends:
+    - BaseJob1
+    - BaseJob2
