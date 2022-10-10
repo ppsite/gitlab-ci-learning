@@ -22,8 +22,8 @@ BaseJob1:
     - echo "Base Job1 scripts"
 
 Job1:
-  stage: S1
   <<: *shared
+  stage: S1
 
 Job2:
   extends:
