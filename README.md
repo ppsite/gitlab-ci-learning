@@ -1,6 +1,6 @@
 > # 模版继承与扩展
 
-# YAML 锚点继承
+# 1. YAML 锚点继承
 
 可以使用 YAML 锚点功能实现代码复用
 
@@ -15,9 +15,12 @@ Job1:
   <<: *shared
 ```
 
-> 实验证明
+## Tips:
 
-# extends 扩展
+1. yaml 后添加的数据会覆盖前面的数据
+
+
+# 2. extends 扩展
 
 ```shell
 BaseJob1:
@@ -34,3 +37,17 @@ Job2:
     - BaseJob1
     - BaseJob2
 ```
+
+## Tips:
+
+1. 后扩展的数据会覆盖前面的数据
+
+
+
+
+
+
+
+> 参考文档
+
+[include](https://gitlab.gz.cvte.cn/help/ci/yaml/index.md#include)

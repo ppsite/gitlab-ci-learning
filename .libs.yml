@@ -1,0 +1,3 @@
+.template:
+  script:
+    - echo "Job Template script which can be included by others"

@@ -1,9 +1,12 @@
 # vars & jobs
 
+include:
+  - local: ".libs.yml"
 
 stages:
   - S1
   - S2
+  - S3
   - shared
 
 .Shared: &shared
@@ -12,15 +15,17 @@ stages:
     - echo "Shared scripts"
 
 # extends
+.BaseJob1:
+  stage: S1
+  script:
+    - echo "Base Job1 scripts"
+
+
 .BaseJob2:
   stage: S2
   script:
     - echo "Base Job2 scripts"
 
-.BaseJob1:
-  stage: S1
-  script:
-    - echo "Base Job1 scripts"
 
 Job1:
   <<: *shared
@@ -30,3 +35,8 @@ Job2:
   extends:
     - .BaseJob1
     - .BaseJob2
+
+Job3:
+  stage: S3
+  extends:
+    - .template
