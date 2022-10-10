@@ -4,9 +4,8 @@
 stages:
   - S1
   - S2
-  - shared
 
-Shared: &shared
+.Shared: &shared
   stage: shared
   script:
     - echo "Shared scripts"
