@@ -34,6 +34,8 @@ stages:
 
 ## 2. 尽量不要在 Job 的 script 中编写复杂脚本，可以将他们统一放置到脚本目录
 
-## 3. 如存在不属于任何 stage 的 Job，则无法会报错
+## 3. Job 名称以 `.` 开始，则标记该 Job 隐藏不执行，但它仍可被其他 Job 引用
+
+## 4. 如存在不属于任何 stage 的 Job，则无法会报错
 
 ![](./images/job4_no_stage_error.png)
