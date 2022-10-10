@@ -12,12 +12,12 @@ Shared: &shared
     - echo "Shared scripts"
 
 # extends
-BaseJob2:
+.BaseJob2:
   stage: S2
   script:
     - echo "Base Job2 scripts"
 
-BaseJob1:
+.BaseJob1:
   stage: S1
   script:
     - echo "Base Job1 scripts"
@@ -28,5 +28,5 @@ Job1:
 
 Job2:
   extends:
-    - BaseJob1
-    - BaseJob2
+    - .BaseJob1
+    - .BaseJob2
