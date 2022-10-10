@@ -23,8 +23,8 @@ Shared: &shared
     - echo "Base Job1 scripts"
 
 Job1:
-  <<: *shared
   stage: S1
+  <<: *shared
 
 Job2:
   extends:
