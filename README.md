@@ -1,54 +1,37 @@
-> # 模版继承与扩展
+> # default & inherit
 
-# 1. YAML 锚点继承
+default: 全局自定义作业的一些默认值
 
-可以使用 YAML 锚点功能实现代码复用
-
-```yaml
-Shared: &shared
-  stage: shared
-  script:
-    - echo "Shared scripts"
-
-Job1:
-  stage: S1
-  <<: *shared
-```
-
-## Tips:
-
-1. yaml 后添加的数据会覆盖前面的数据
+inherit: 选择哪些值从全局默认值中继承;
 
 
-# 2. extends 扩展
+> # default 全局默认值
+
+default 关键字下可定义如下 Key:
 
 ```shell
-BaseJob1:
-  stage: S1
-  script:
-    - echo "Base Job1 scripts"
-
-Job1:
-  stage: S1
-  <<: *shared
-
-Job2:
-  extends:
-    - BaseJob1
-    - BaseJob2
+after_script
+artifacts
+before_script
+cache             # 作业缓存
+image             # 作业基础镜像
+interruptible     # 新作业创建时，旧作业是否中断
+retry
+services          # 作业容器启动的服务
+tags
+timeout           # 作业超时时间, 默认 1 H
 ```
 
-## Tips:
+> # inherit 继承控制
 
-1. 后扩展的数据会覆盖前面的数据
+inherit 可以继承 default 和 variables 这两个全局关键字，如不继承任何全局配置，可配置为 false
 
-# 3. include
-
-include 支持从本地，从其他项目，甚至从互联网项目中导入扩展模版，再结合 extends 实现代码复用。
-
-
-
-
+```yaml
+job1:
+  inherit:
+    default: false
+    variables: false
+```
 
 > 参考文档
 
