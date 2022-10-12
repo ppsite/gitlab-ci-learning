@@ -1,38 +1,7 @@
-> # default & inherit
+> # needs & dependencies
 
-default: 全局自定义作业的一些默认值
+# 作业依赖 - needs
 
-inherit: 选择哪些值从全局默认值中继承;
+默认情况下，所有 Job 按照 stages 规定的顺序执行，上一个 stage 结束后，才能执行下一个 stage
 
-
-> # default 全局默认值
-
-default 关键字下可定义如下 Key:
-
-```shell
-after_script
-artifacts
-before_script
-cache             # 作业缓存
-image             # 作业基础镜像
-interruptible     # 新作业创建时，旧作业是否中断
-retry
-services          # 作业容器启动的服务
-tags
-timeout           # 作业超时时间, 默认 1 H
-```
-
-> # inherit 继承控制
-
-inherit 可以继承 default 和 variables 这两个全局关键字，如不继承任何全局配置，可配置为 false
-
-```yaml
-job1:
-  inherit:
-    default: false
-    variables: false
-```
-
-> 参考文档
-
-[include](https://gitlab.gz.cvte.cn/help/ci/yaml/index.md#include)
+但对于一些并行构建模式，无需等待上一个阶段的所有作业完成，就可以继续执行下一个构建；这样可以大大缩短构建时间。

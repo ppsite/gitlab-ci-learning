@@ -1,33 +1,53 @@
-# default and inherit
+# 默认执行顺序
+stages:
+  - build
+  - test
+  - deploy
 
-default:
-  retry: 2
-  image: ruby:3.0
-  interruptible: true
-
-
-variables:
-  VARIABLE1: "This is variable 1"
-  VARIABLE2: "This is variable 2"
-  VARIABLE3: "This is variable 3"
-
-
-job1:
+  # build packs
+build_win:
+  stage: build
   script:
-  - echo "This job does not inherit any default keywords."
-  - echo "This job does not inherit any global variables."
-  inherit:
-    default: false
-    variables: false
+    - echo "Build Windows Packs"
 
-job2:
+build_linux:
+  stage: build
   script:
-  - echo "This job inherits only the two listed default keywords. It does not inherit 'interruptible'."
-  - echo "This job inherits only the two listed global variables. It does not inherit 'VARIABLE3'."
-  inherit:
-    default:
-      - retry
-      - image
-    variables:
-      - VARIABLE1
-      - VARIABLE2
+    - echo "Build Linux Packs"
+
+build_mac:
+  stage: build
+  script:
+    - echo "Build Mac Packs"
+
+# test packs
+test_win:
+  stage: test
+  script:
+    - echo "Test Windows Packs"
+
+test_linux:
+  stage: test
+  script:
+    - echo "Test Linux Packs"
+
+test_mac:
+  stage: test
+  script:
+    - echo "Test Mac Packs"
+
+# deploy packs
+deploy_win:
+  stage: deploy
+  script:
+    - echo "Deploy Windows Packs"
+
+deploy_linux:
+  stage: deploy
+  script:
+    - echo "Deploy Linux Packs"
+
+deploy_mac:
+  stage: deploy
+  script:
+    - echo "Deploy Mac Packs"
