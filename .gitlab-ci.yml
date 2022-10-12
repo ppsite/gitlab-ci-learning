@@ -8,6 +8,7 @@ stages:
 build_win:
   stage: build
   script:
+    - sleep 10
     - echo "Build Windows Packs"
 
 build_linux:
@@ -23,31 +24,44 @@ build_mac:
 # test packs
 test_win:
   stage: test
+  needs:
+    - build_win
   script:
+    - sleep 10
     - echo "Test Windows Packs"
 
 test_linux:
   stage: test
+  needs:
+    - build_linux
   script:
     - echo "Test Linux Packs"
 
 test_mac:
   stage: test
+  needs:
+    - build_mac
   script:
     - echo "Test Mac Packs"
 
 # deploy packs
 deploy_win:
   stage: deploy
+  needs:
+    - test_win
   script:
     - echo "Deploy Windows Packs"
 
 deploy_linux:
   stage: deploy
+  needs:
+    - test_linux
   script:
     - echo "Deploy Linux Packs"
 
 deploy_mac:
   stage: deploy
+  needs:
+    - test_mac
   script:
     - echo "Deploy Mac Packs"
