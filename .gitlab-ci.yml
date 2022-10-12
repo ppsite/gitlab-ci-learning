@@ -1,5 +1,6 @@
 # 默认执行顺序
 stages:
+  - .pre
   - build
   - test
   - deploy
@@ -9,16 +10,37 @@ build_win:
   stage: build
   script:
     - sleep 10
+    - touch ./build/win.txt
     - echo "Build Windows Packs"
+  artifacts:
+    paths:
+      - ./build/
+    exclude:
+      - .gitkeep
+    expire_in: 1 days
 
 build_linux:
   stage: build
+  artifacts:
+    paths:
+      - ./build/
+    exclude:
+      - .gitkeep
+    expire_in: 1 days
   script:
+    - touch ./build/linux.txt
     - echo "Build Linux Packs"
 
 build_mac:
   stage: build
+  artifacts:
+    paths:
+      - ./build/
+    exclude:
+      - .gitkeep
+    expire_in: 1 days
   script:
+    - touch ./build/mac.txt
     - echo "Build Mac Packs"
 
 # test packs
@@ -26,12 +48,16 @@ test_win:
   stage: test
   needs:
     - build_win
+  dependencies:
+    - build_win
   script:
     - sleep 10
     - echo "Test Windows Packs"
 
 test_linux:
   stage: test
+  dependencies:
+    - build_linux
   needs:
     - build_linux
   script:
@@ -41,6 +67,8 @@ test_mac:
   stage: test
   needs:
     - build_mac
+  dependencies:
+    - build_mac
   script:
     - echo "Test Mac Packs"
 
@@ -49,6 +77,8 @@ deploy_win:
   stage: deploy
   needs:
     - test_win
+  dependencies:
+    - build_win
   script:
     - echo "Deploy Windows Packs"
 
@@ -56,6 +86,8 @@ deploy_linux:
   stage: deploy
   needs:
     - test_linux
+  dependencies:
+    - build_linux
   script:
     - echo "Deploy Linux Packs"
 
@@ -63,5 +95,6 @@ deploy_mac:
   stage: deploy
   needs:
     - test_mac
+  dependencies: []    # 空列表代表不下载任何制品
   script:
     - echo "Deploy Mac Packs"
