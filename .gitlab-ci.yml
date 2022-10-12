@@ -72,7 +72,7 @@ deploy_win:
   needs:
     - test_win
   dependencies:
-    - build_win
+    - test_win
   script:
     - echo "Deploy Windows Packs"
 
@@ -81,7 +81,7 @@ deploy_linux:
   needs:
     - test_linux
   dependencies:
-    - build_linux
+    - test_linux
   script:
     - echo "Deploy Linux Packs"
 
