@@ -13,6 +13,7 @@ stages:
 Job1:
   stage: S1
   before_script:
+    - export
     - Status="running"
     - echo "Job1 status ${Status}"
   script:
