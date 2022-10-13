@@ -1,0 +1,3 @@
+deploy:
+  scripts:
+    - echo "Deploy Linux ${IMAGE}"

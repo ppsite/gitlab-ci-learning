@@ -1,79 +1,16 @@
-# 只在 main 分支或 feather 分支运行
+# 通过 gitops 项目做演示
+#Job1:
+#  trigger: MyGroup/MyProject
+
+variables:
+  IMAGE: "DEPLOY_IMAGE"
+
 Job1:
-  script:
-    - echo "Job1 scripts Run"
-  only:
-    refs:
-      - main
-      - /^feature-.*/
-
-# 除 main 分支外，都执行
-Job2:
-  script:
-    - echo "Job2 scripts Run"
-  except:
-    refs:
-      - main
-
-# 变量存在则运行
-Job3:
-  script:
-    - echo "Job3 scripts Run"
-  only:
-    variables:
-      - $VAR
-      # - $VAR == "abc"
-
-# 文件发生变更才运行
-Job4:
-  script:
-    - echo "Job4 scripts Run"
-  only:
-    changes:
-      - Dockerfile
-      - src/**/*
-
-# 官方示例
-# https://gitlab.gz.cvte.cn/help/ci/yaml/index.md#rules
-Job5:
-  script: echo "Hello, Rules!"
-  rules:
-    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^feature/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != $CI_DEFAULT_BRANCH
-      when: never
-    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^feature/
-      when: manual
-      allow_failure: true
-    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
-
-
-Job6:
-  script:
-    - echo "Job6 scripts Run"
-  rules:
-    - changes:
-        paths:
-          - Dockerfile
-          - scr/**/*
-      when: manual
-      allow_failure: true
-
-Job7:
-  script:
-    - echo "Job7 scripts Run"
-  rules:
-    - exists:   # 自动遍历目录检查文件，最多检查 10k 个文件
-        - Dockerfile
-
-# 定义新变量
-Job8:
-  script:
-    - echo "Job8 scripts Run"
-  rules:
-    - if: $CI_COMMIT_REF_NAME =~ /^feature/
-      variables:
-        VAR: "newFeather"
-
-# workflow 用于控制整个 pipeline 行为，与 Jobs 中定义的 rules 规则一样
-workflow:
-  rules:
-    - if: $VAR
+  trigger:
+    include:
+      - local: "deploy/deploy.windows.yaml"
+      - local: "deploy/deploy.linux.yaml"
+    strategy: depend
+    forward:
+      yaml_variables: true  # 默认 true
+      pipeline_variables: false # 默认 false
