@@ -4,8 +4,8 @@ variables:
 # 通过 gitops 项目做演示
 JobTriggerProject:
   trigger:
-    project: ci/Learning
-    branch: 01.Runner_工作原理
+    project: "ci/Learning"
+    branch: "01.Runner_工作原理"
 
 JobTriggerSubPipelines:
   trigger:
