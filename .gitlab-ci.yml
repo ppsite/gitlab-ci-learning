@@ -12,6 +12,7 @@ Job1:
 clean_test_env:
   script:
     - echo "Clean Test Env Job Runs"
+  when: manual
   environment:
     name: test
     action: stop
