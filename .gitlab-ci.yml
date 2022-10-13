@@ -3,6 +3,15 @@ Job1:
     - echo "Job1 Scripts Run"
   environment:
     name: test
-    url: https://wwww.cvte.com
+    url: http://www.cvte.com/
+    on_stop: clean_test_env
 
   resource_group: whatever_you_wat    # 不允许以左斜杠开始或结束
+
+
+clean_test_env:
+  script:
+    - echo "Clean Test Env Job Runs"
+  environment:
+    name: test
+    action: stop
