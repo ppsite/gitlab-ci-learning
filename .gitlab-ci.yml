@@ -1,12 +1,8 @@
 Job1:
   script:
     - echo "Job1 Scripts Run"
-    - sleep 60
+  environment:
+    name: test
+    url: https://wwww.cvte.com
+
   resource_group: whatever_you_wat    # 不允许以左斜杠开始或结束
-
-
-Job2:
-  trigger:
-    include: .sub_pipeline.yaml
-    strategy: depend
-  resource_group: production
