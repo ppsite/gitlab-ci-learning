@@ -1,11 +1,13 @@
-# 通过 gitops 项目做演示
-#Job1:
-#  trigger: MyGroup/MyProject
-
 variables:
   IMAGE: "DEPLOY_IMAGE"
 
-Job1:
+# 通过 gitops 项目做演示
+JobTriggerProject:
+  trigger:
+    project: ci/Learning
+    branch: 01.Runner_工作原理
+
+JobTriggerSubPipelines:
   trigger:
     include:
       - local: "deploy/windows.yaml"

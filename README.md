@@ -38,3 +38,5 @@ forward：控制哪些信息可以传递给子流水线；
 
 yaml_variables: yaml 文件中配置的环境变量可以传递给子流水线
 pipeline_variables: 手动执行或者定时执行的流水线变量，可以传递给子流水线。
+
+![](./images/trigger-subpipeline.png)
