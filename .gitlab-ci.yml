@@ -1,94 +1,19 @@
-# 默认执行顺序
-stages:
-  - .pre
-  - build
-  - test
-  - deploy
+# 简单循环作业，最大不允许超过 50
+SimpleRepeatJob:
+  script: echo "SimpleJob Run"
+  parallel: 5
 
-  # build packs
-build_win:
-  stage: build
-  script:
-    - sleep 10
-    - touch ./build/win.txt
-    - echo "Build Windows Packs"
 
-build_linux:
-  stage: build
+# 单任务执行多次，每次参数不同
+DifferentParamsJob:
   script:
-    - touch ./build/linux.txt
-    - echo "Build Linux Packs"
-
-build_mac:
-  stage: build
-  script:
-    - touch ./build/mac.txt
-    - echo "Build Mac Packs"
-
-# test packs
-test_win:
-  stage: test
-  needs:
-    - build_win
-  artifacts:
-    paths:
-      - ./build/
-    exclude:
-      - .gitkeep
-    expire_in: 1 days
-  script:
-    - sleep 10
-    - echo "Test Windows Packs"
-
-test_linux:
-  stage: test
-  artifacts:
-    paths:
-      - ./build/
-    exclude:
-      - .gitkeep
-    expire_in: 1 days
-  needs:
-    - build_linux
-  script:
-    - echo "Test Linux Packs"
-
-test_mac:
-  stage: test
-  needs:
-    - build_mac
-  artifacts:
-    paths:
-      - ./build/
-    exclude:
-      - .gitkeep
-    expire_in: 1 days
-  script:
-    - echo "Test Mac Packs"
-
-# deploy packs
-deploy_win:
-  stage: deploy
-  needs:
-    - test_win
-  dependencies:
-    - test_win
-  script:
-    - echo "Deploy Windows Packs"
-
-deploy_linux:
-  stage: deploy
-  needs:
-    - test_linux
-  dependencies:
-    - test_linux
-  script:
-    - echo "Deploy Linux Packs"
-
-deploy_mac:
-  stage: deploy
-  needs:
-    - test_mac
-  dependencies: []    # 空列表代表不下载任何制品
-  script:
-    - echo "Deploy Mac Packs"
+    - echo "Username ${NAME}, sleep ${SLEEP}"
+    - sleep ${SLEEP}
+  parallel:
+    matrix:
+      - NAME: "zhangsan"
+        SLEEP:
+          - 5
+          - 4
+      - NAME: ["lisi", "wanger"]
+        SLEEP: [3, 1]
