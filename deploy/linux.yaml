@@ -1,3 +1,0 @@
-SubJobLinux:
-  script:
-    - echo "Deploy Linux ${IMAGE}"

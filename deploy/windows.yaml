@@ -1,3 +1,0 @@
-SubJobWindows:
-  script:
-    - echo "Deploy Windows ${IMAGE}"

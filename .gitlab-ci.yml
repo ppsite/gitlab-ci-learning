@@ -1,18 +1,12 @@
-variables:
-  IMAGE: "DEPLOY_IMAGE"
+Job1:
+  script:
+    - echo "Job1 Scripts Run"
+    - sleep 60
+  resource_group: whatever_you_wat    # 不允许以左斜杠开始或结束
 
-# 通过 gitops 项目做演示
-#JobTriggerProject:
-#  trigger:
-#    project: "ci/Learning"
-#    branch: "01.Runner_工作原理"
 
-JobTriggerSubPipelines:
+Job2:
   trigger:
-    include:
-      - local: "deploy/windows.yaml"
-      - local: "deploy/linux.yaml"
+    include: .sub_pipeline.yaml
     strategy: depend
-    forward:
-      yaml_variables: true  # 默认 true
-      pipeline_variables: false # 默认 false
+  resource_group: production
