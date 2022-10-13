@@ -8,8 +8,8 @@ variables:
 Job1:
   trigger:
     include:
-      - local: "deploy/deploy.windows.yaml"
-      - local: "deploy/deploy.linux.yaml"
+      - local: "deploy/windows.yaml"
+      - local: "deploy/linux.yaml"
     strategy: depend
     forward:
       yaml_variables: true  # 默认 true
