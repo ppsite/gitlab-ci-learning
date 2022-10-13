@@ -1,37 +1,26 @@
-> # parallel
+> # 条件限定
 
-# 并行执行 - parallel
+# only / except
 
-对于非常耗时的操作，比如要执行 1H，可以把一个长任务拆分为多个短任务，通过并行处理加速。
+only: 仅在满足条件的情况下执行
 
+except: 除规定的条件外，都执行
 
-parallel 支持两种模式：简单循环和矩阵参数
+[参考文档](https://gitlab.gz.cvte.cn/help/ci/yaml/index.md#only--except)
 
-# 简单循环
+![](./images/refs.png)
 
-```yaml
-# 简单循环作业，最大不允许超过 50
-SimpleRepeatJob:
-  script: echo "SimpleJob Run"
-  parallel: 5
+# rules
+
+rules 是 only/except 的加强版，可以实现 only/except 的所有功能，但他们不能出现在同一Job 中。
+
+rules 的子命令如下：
+
+```text
+if
+changes
+exists
+allow_failure
+variables
+when
 ```
-![](./images/simple.png)
-
-# 矩阵参数
-
-```yaml
-# 单任务执行多次，每次参数不同
-DifferentParamsJob:
-  script:
-    - echo "Username ${NAME}, sleep ${SLEEP}"
-    - sleep ${SLEEP}
-  parallel:
-    matrix:
-      - NAME: "zhangsan"
-        SLEEP:
-          - 5
-          - 4
-      - NAME: ["lisi", "wanger"]
-        SLEEP: [3, 1]
-```
-![](./images/matrix.png)
