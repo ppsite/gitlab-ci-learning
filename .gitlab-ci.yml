@@ -7,7 +7,7 @@ services:
   - docker:stable-dind
 
 default:
-  image: artifactory.gz.cvte.cn/devops/cvte/nvm:14.18.3
+  image: artifactory.gz.cvte.cn/devops/cvte/nvm:14.18.3-v3
 
 job_install:
   script:
