@@ -16,6 +16,7 @@ Job1:
     - >
       echo "Job1 After script start"
       echo "Job1 After script ends"
+      echo "commit short sha: ${CI_COMMIT_SHORT_SHA}"
       
 Job2:
   script:
